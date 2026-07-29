@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { GraduationCap, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import avatarImg from '../assets/anh/anh1.png';
 
 export default function WelcomeSection() {
   const ref = useRef(null);
@@ -31,46 +32,68 @@ export default function WelcomeSection() {
       {/* Main Content */}
       <motion.div 
         style={{ y: yText, opacity }}
-        className="z-10 flex flex-col items-center text-center px-4"
+        className="z-10 flex flex-col items-center text-center px-4 w-full pt-10 md:pt-0"
       >
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#5b8a9f] mb-8 md:mb-12 drop-shadow-sm flex items-center justify-center gap-2 md:gap-4 font-sans w-full tracking-tight"
+        >
+          <Sparkles className="text-yellow-400 w-6 h-6 md:w-10 md:h-10 animate-pulse flex-shrink-0" />
+          <span className="text-center bg-clip-text text-transparent bg-gradient-to-r from-[#7bb4cc] to-[#a379c0]">Chúc mừng tốt nghiệp</span>
+          <Sparkles className="text-yellow-400 w-6 h-6 md:w-10 md:h-10 animate-pulse flex-shrink-0" />
+        </motion.h1>
+
+        {/* Khung ảnh Blob lớn */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }}
-          className="mb-6 p-4 rounded-full bg-white/50 backdrop-blur-sm border border-white shadow-lg"
+          transition={{ type: "spring", stiffness: 200, damping: 25, delay: 0.2 }}
+          className="relative mb-12 md:mb-16 w-full flex justify-center"
         >
-          <GraduationCap className="w-12 h-12 text-[#8bbcd1]" />
+          <div 
+            className="relative w-[280px] h-[300px] md:w-[450px] md:h-[480px] overflow-hidden border-[8px] md:border-[12px] border-[#eaf4f8] shadow-[0_20px_50px_rgba(178,217,232,0.5)] bg-white group cursor-pointer transition-transform duration-700 hover:scale-105"
+            style={{ borderRadius: '50% 50% 40% 60% / 60% 40% 60% 40%' }}
+          >
+            <img src={avatarImg} alt="Kiều Oanh" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          </div>
+
+          {/* Tên đè lên khung ảnh (Dùng kĩ thuật text stroke 2 lớp để viền dày không lẹm vào chữ) */}
+          <div className="absolute -bottom-10 md:-bottom-14 w-full flex flex-col justify-center items-center z-20 pointer-events-none">
+             <div className="relative inline-block text-center flex flex-col items-center">
+               {/* Lớp bóng đổ / Viền ngoài dày */}
+               <h2 className="absolute top-0 left-0 w-full font-black uppercase tracking-wider text-[#ebbd70] drop-shadow-xl flex flex-col leading-tight items-center"
+                   style={{ WebkitTextStroke: '10px #ebbd70', fontFamily: 'Quicksand, Comic Sans MS, Nunito, sans-serif' }}>
+                 <span className="text-2xl md:text-4xl -mb-1 md:-mb-2">NGÔ PHẠM</span>
+                 <span className="text-[2.5rem] md:text-[5rem] leading-none">KIỀU OANH</span>
+               </h2>
+               {/* Lớp viền mỏng + Chữ màu trắng (Foreground) */}
+               <h2 className="relative font-black uppercase tracking-wider text-white flex flex-col leading-tight items-center"
+                   style={{ WebkitTextStroke: '2px #ca953e', fontFamily: 'Quicksand, Comic Sans MS, Nunito, sans-serif' }}>
+                 <span className="text-2xl md:text-4xl -mb-1 md:-mb-2">NGÔ PHẠM</span>
+                 <span className="text-[2.5rem] md:text-[5rem] leading-none">KIỀU OANH</span>
+               </h2>
+             </div>
+          </div>
         </motion.div>
 
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-800 mb-6 drop-shadow-sm flex items-center gap-4"
-        >
-          <Sparkles className="text-yellow-400 w-8 h-8 md:w-12 md:h-12 hidden md:block animate-pulse" />
-          Chúc mừng tốt nghiệp
-          <Sparkles className="text-yellow-400 w-8 h-8 md:w-12 md:h-12 hidden md:block animate-pulse" />
-        </motion.h1>
-
+        {/* Thông tin trường lớp, ngày sinh */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="glass p-8 md:p-12 rounded-3xl mt-4 border border-white/60 shadow-xl max-w-2xl w-full mx-auto"
+          className="glass mt-4 md:mt-8 p-5 md:p-8 rounded-[2rem] border border-white/60 shadow-[0_10px_30px_rgba(178,217,232,0.2)] max-w-lg w-full mx-auto flex flex-col gap-3 md:gap-4 bg-white/40"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#8bbcd1] to-[#b78fd1] mb-6 pb-1">
-            Ngô Phạm Kiều Oanh
-          </h2>
+          <div className="flex items-center justify-center gap-3 text-slate-500 font-medium text-sm md:text-base bg-white/50 py-2 px-6 rounded-full w-fit mx-auto shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#ebbd70] animate-pulse"></span>
+            Ngày tốt nghiệp: 30/07/2026
+            <span className="w-2 h-2 rounded-full bg-[#ebbd70] animate-pulse"></span>
+          </div>
           
-          <div className="space-y-4 text-slate-600 text-lg md:text-xl font-light">
-            <p className="flex items-center justify-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#B2D9E8]"></span>
-              20/10/2004
-            </p>
-            <div className="h-[1px] w-1/2 mx-auto bg-gradient-to-r from-transparent via-slate-200 to-transparent my-4"></div>
-            <p>Đại học Khoa học Xã hội và Nhân văn</p>
-            <p className="font-medium">ĐHQG TP.HCM</p>
+          <div className="space-y-1 mt-2">
+            <p className="text-sm md:text-base text-slate-600">Đại học Khoa học Xã hội và Nhân văn</p>
+            <p className="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#7bb4cc] to-[#a379c0]">ĐHQG TP.HCM</p>
           </div>
         </motion.div>
       </motion.div>

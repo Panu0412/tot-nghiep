@@ -11,6 +11,7 @@ import InteractiveLetter from './components/InteractiveLetter';
 import CelebrationScene from './components/CelebrationScene';
 import CursorGlow from './components/CursorGlow';
 import SparkleEffect from './components/SparkleEffect';
+import GlobalEasterEgg from './components/GlobalEasterEgg';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -55,6 +56,7 @@ function App() {
           <IntroScreen key="intro" onStart={() => setIntroFinished(true)} />
         ) : (
           <main key="main-content" className="w-full">
+            <GlobalEasterEgg />
             <WelcomeSection />
             
             <div className="h-24 bg-gradient-to-b from-[#f8fafc] to-[#f8fafc]"></div>

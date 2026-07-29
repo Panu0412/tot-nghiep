@@ -30,13 +30,14 @@ export default function InteractiveLetter() {
             }}
             transition={{ duration: 1.2, type: "spring", bounce: 0.2 }}
           >
-            <h3 className="text-xl text-[#8bbcd1] font-medium mb-4">Chào bạn,</h3>
+            <h3 className="text-xl text-[#8bbcd1] font-medium mb-4">Hí nhô =))))</h3>
             <div className="space-y-3 md:space-y-4 text-slate-600 text-sm md:text-base leading-relaxed overflow-y-auto" style={{ maxHeight: isOpen ? '50vh' : 'auto' }}>
-              <p>Chúc mừng bạn đã chính thức tốt nghiệp! Bốn năm thanh xuân tại Đại học Khoa học Xã hội và Nhân văn chắc chắn đã để lại trong bạn rất nhiều kỷ niệm đẹp.</p>
-              <p>Ngày hôm nay đánh dấu một cột mốc quan trọng, một cánh cửa mới mở ra với vô vàn cơ hội và cả những thử thách. Dù phía trước có khó khăn thế nào, hãy luôn giữ vững niềm tin, sự tự tin và nụ cười rạng rỡ như ngày hôm nay nhé.</p>
-              <p>Chúc bạn sẽ luôn vững bước trên con đường đã chọn, gặt hái được nhiều thành công và luôn hạnh phúc.</p>
-              <p className="pt-4 text-right italic font-medium text-slate-700">Người bạn của bạn,</p>
-              <p className="text-right text-[#8bbcd1]">Phan Minh Nhựt</p>
+              <p>Chiện là như này nè. Trong tất cả các lời chúc thì tui thích chúc mừng bạn đã tốt nghiệp nhất. Mừng bạn đã hoàn thành 4 năm đèn sách và chuẩn bị bước vào con đường tư bản nhen.</p>
+              <p>Chúc bạn sắp tới đi làm gặp được môi trường tốt, đồng nghiệp dễ thương, sếp bớt khó tính để mỗi sáng thức dậy không phải ngán đi làm. Mong mọi chuyện cũng sẽ thuận lợi hơn những gì bạn mong đợi.</p>
+              <p>Mai mốt có đang chán hay bùn thì nhớ hú toi nhen. Alo 1 cái là có mặt đi chơi liền.</p>
+              <p>Một lần nữa, xin chúc mừng nha!</p>
+              <p className="pt-4 text-right italic font-medium text-slate-700">Ký tên</p>
+              <p className="text-right text-[#8bbcd1] font-bold">Phan Minh Nhựt</p>
             </div>
           </motion.div>
 

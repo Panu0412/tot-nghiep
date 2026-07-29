@@ -29,7 +29,7 @@ export default function MemoryGallery() {
   return (
     <section className="relative min-h-screen py-20 px-4 bg-gradient-to-b from-[#f8fafc] to-[#e0f0f8] overflow-hidden">
       <div className="text-center mb-16 relative z-10">
-        <h2 className="text-3xl md:text-4xl font-serif text-slate-700 mb-4">Góc Kỷ Niệm</h2>
+        <h2 className="text-3xl md:text-4xl font-sans font-bold tracking-tight text-slate-700 mb-4">Khoảnh Khắc Đẹp</h2>
         <p className="text-slate-500 font-light">Những khoảnh khắc đáng nhớ</p>
         
         <button 

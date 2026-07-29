@@ -4,86 +4,146 @@ import confetti from 'canvas-confetti';
 
 export default function CelebrationScene() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   useEffect(() => {
     if (isInView) {
-      const duration = 3000;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+      const duration = 5000;
+      const end = Date.now() + duration;
 
-      const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
+      const frame = () => {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.8 },
+          colors: ['#ebbd70', '#8bbcd1', '#a379c0', '#ffffff', '#B2D9E8']
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.8 },
+          colors: ['#ebbd70', '#8bbcd1', '#a379c0', '#ffffff', '#B2D9E8']
+        });
 
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
         }
+      };
+      
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#ebbd70', '#8bbcd1', '#a379c0', '#ffffff', '#B2D9E8'],
+        disableForReducedMotion: true
+      });
 
-        const particleCount = 50 * (timeLeft / duration);
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
-      }, 250);
+      frame();
     }
   }, [isInView]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-t from-[#B2D9E8]/30 to-[#f8fafc]">
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#e0f0f8] to-[#f0f8fb] perspective-[1000px]">
       
-      {/* Floating balloons */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+      {/* Immersive glowing background (Light theme) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.8)_0%,_transparent_70%)] z-0"></div>
+      
+      {/* Soft light ray effect from center */}
+      <motion.div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white opacity-40 rounded-full blur-[100px] z-0 pointer-events-none"
+        animate={isInView ? { scale: [1, 1.2, 1], opacity: [0, 0.4, 0.2] } : {}}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Floating stars (Soft colors) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {[...Array(15)].map((_, i) => (
           <motion.div
-            key={`balloon-${i}`}
-            className="absolute text-4xl md:text-6xl"
+            key={`star-${i}`}
+            className="absolute text-2xl md:text-4xl filter drop-shadow-sm"
+            style={{ color: i % 2 === 0 ? '#ebbd70' : '#8bbcd1' }}
             initial={{ 
-              bottom: '-20%', 
+              top: `${Math.random() * 100}%`, 
               left: `${Math.random() * 100}%`,
-              x: 0
+              scale: 0,
+              opacity: 0
             }}
-            animate={{ 
-              bottom: '120%',
-              x: [0, 30, -30, 0]
-            }}
+            animate={isInView ? { 
+              scale: [0, 1, 0.5, 1],
+              opacity: [0, 0.8, 0.4, 0.8],
+              y: [0, -30, 0]
+            } : {}}
             transition={{ 
-              duration: 15 + Math.random() * 10, 
+              duration: 3 + Math.random() * 2, 
               repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear"
+              delay: Math.random() * 2,
+              ease: "easeInOut"
             }}
           >
-            🎈
+            ✨
           </motion.div>
         ))}
       </div>
 
-      <motion.div 
-        className="z-10 text-center glass p-12 md:p-20 rounded-[3rem] shadow-2xl border-2 border-white/80 mx-4 max-w-4xl"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        transition={{ duration: 1, type: "spring", bounce: 0.4 }}
-      >
+      {/* Main Content (Explosive pop-out) */}
+      <div className="z-10 flex flex-col items-center text-center w-full max-w-[90vw] md:max-w-5xl px-4 pointer-events-none">
+        
+        {/* Massive 3D Graduation Cap */}
         <motion.div 
-          className="text-6xl md:text-8xl mb-6"
-          animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
-          transition={{ duration: 2, delay: 1, repeat: Infinity, repeatDelay: 3 }}
+          className="text-8xl md:text-[150px] mb-4 filter drop-shadow-[0_20px_30px_rgba(178,217,232,0.6)]"
+          initial={{ scale: 0, y: 150, rotateX: 60 }}
+          animate={isInView ? { scale: 1, y: 0, rotateX: 0 } : {}}
+          transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.2 }}
         >
-          🎓
+          <motion.div
+            animate={{ y: [-10, 10], rotate: [-3, 3] }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+          >
+            🎓
+          </motion.div>
         </motion.div>
         
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#8bbcd1] to-[#a379c0] mb-8 pb-2 leading-relaxed">
-          Congratulations!
-        </h2>
+        {/* Giant Text (Light Theme) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5, filter: "blur(20px)" }}
+          animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+          className="relative w-full flex justify-center"
+        >
+          {/* Text shadow layer for immense glow (soft light version) */}
+          <h2 className="absolute text-[10vw] sm:text-6xl md:text-7xl lg:text-[100px] font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#8bbcd1] via-[#ffffff] to-[#a379c0] blur-[15px] opacity-80 select-none text-center inline-block w-max max-w-[95vw]">
+            CONGRATULATIONS
+          </h2>
+          
+          <h2 className="relative text-[10vw] sm:text-6xl md:text-7xl lg:text-[100px] font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#7bb4cc] via-[#a379c0] to-[#ebbd70] drop-shadow-[0_5px_15px_rgba(139,188,209,0.4)] tracking-tighter leading-tight mb-4 text-center inline-block w-max max-w-[95vw]"
+              style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)' }}>
+            CONGRATULATIONS
+          </h2>
+        </motion.div>
         
-        <h3 className="text-2xl md:text-4xl text-slate-700">
-          Ngô Phạm Kiều Oanh
-        </h3>
-        
-        <div className="mt-12 flex justify-center gap-4">
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity }}>✨</motion.div>
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}>🌟</motion.div>
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }}>✨</motion.div>
-        </div>
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 1.2, type: "spring", bounce: 0.5 }}
+          className="relative inline-block mt-4 md:mt-8 bg-white/60 backdrop-blur-sm py-4 px-8 rounded-full border border-white shadow-[0_10px_30px_rgba(178,217,232,0.3)]"
+        >
+          <h3 className="relative text-2xl sm:text-4xl md:text-5xl font-sans font-bold text-[#5b8a9f] tracking-widest uppercase">
+            NGÔ PHẠM KIỀU OANH
+          </h3>
+        </motion.div>
 
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 2 }}
+          className="mt-12 text-[#8bbcd1] font-medium text-lg sm:text-2xl tracking-[0.2em] uppercase bg-white/80 px-6 py-2 rounded-full shadow-sm"
+        >
+          Hành trình mới bắt đầu!
+        </motion.p>
+        
+      </div>
     </section>
   );
 }
