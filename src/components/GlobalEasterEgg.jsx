@@ -45,7 +45,7 @@ export default function GlobalEasterEgg() {
               
               <div className="bg-[#f0f8fb] p-6 rounded-2xl mb-6 mt-6">
                 <p className="text-slate-700 font-medium leading-relaxed">
-                  "hẹn bạn 1 ngày rảnh =))) có thể đi lại cái trip vũng tàu hoặc lại đi chơi típ"
+                  "hẹn bạn 1 ngày rảnh =))) có thể đi lại cái trip vũng tàu hoặc lại đi chơi típ, toiii tổng tài sẽ bao bạnnnn"
                 </p>
               </div>
 
